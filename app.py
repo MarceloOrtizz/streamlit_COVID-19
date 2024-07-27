@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 @st.cache_data
 def load_data():
     # Reemplaza 'tu_archivo.csv' con el nombre de tu archivo CSV
-    return pd.read_csv('data\processed\prediccion_ML_deceased.csv')
+    return pd.read_csv('data/processed/prediccion_ML_deceased.csv')
 
 # Cargar los datos
 data = load_data()
