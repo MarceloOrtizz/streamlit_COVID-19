@@ -102,7 +102,7 @@ elif selected == "Gráficos ML":
         y_title = 'Decesos'
     else:
         data = cases_data
-        y_label_real = 'new_confirmed'  # Cambiar esto al nombre correcto en tu DataFrame de casos confirmados
+        y_label_real = 'new_confirmed'  
         y_label_pred = 'Prediccion'
         y_title = 'Casos Confirmados'
 
