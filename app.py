@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
 from streamlit_option_menu import option_menu
+import matplotlib.pyplot as plt
 
 # Cargar los archivos CSV
 @st.cache_data
@@ -47,8 +48,8 @@ def mostrar_predicciones(data, title):
 with st.sidebar:
     selected = option_menu(
         menu_title="Navegación",
-        options=["Presentación del equipo", "Predicción de decesos", "Predicción de casos confirmados", "Ejemplo 1 Power BI", "Otro Ejemplo", "Ejemplo con link"],
-        icons=["people", "activity", "bar-chart", "table", "table", "table"],
+        options=["Presentación del equipo", "Predicción de decesos", "Predicción de casos confirmados", "Ejemplo 1 Power BI", "Gráficos ML"],
+        icons=["people", "activity", "bar-chart", "table", "bar-chart"],
         menu_icon="cast",
         default_index=0,
     )
@@ -86,11 +87,30 @@ elif selected == "Ejemplo 1 Power BI":
     embed_url = "https://app.powerbi.com/view?r=eyJrIjoiMzRhMjMxYTgtY2Q3MS00NDk0LThjMWEtMmYwMWJmN2EyMzc2IiwidCI6Ijk5ZTFlNzIxLTcxODQtNDk4ZS04YWZmLWIyYWQ0ZTUzYzFjMiIsImMiOjR9&pageName=ReportSection"
     st.components.v1.iframe(src=embed_url, height=800, width=1100)
 
-elif selected == "Otro Ejemplo":
-    embed_url = "https://app.powerbi.com/view?r=eyJrIjoiZjM5ZDVkODUtYWFmZi00NTk2LTkyNWEtYmE4YjhhZGEyMmYwIiwidCI6ImRmODY3OWNkLWE4MGUtNDVkOC05OWFjLWM4M2VkN2ZmOTVhMCJ9"
-    st.components.v1.iframe(src=embed_url, height=800, width=1100)
+# Gráficos ML
+elif selected == "Gráficos ML":
+    st.title("Gráficos de Predicción vs Realidad")
 
-elif selected == "Ejemplo con link":
-    st.title("Dashboard de Power BI")
-    st.write("Puedes visualizar el dashboard en el siguiente enlace:")
-    st.markdown("[Dashboard Power BI](https://app.powerbi.com/view?r=eyJrIjoiZjM5ZDVkODUtYWFmZi00NTk2LTkyNWEtYmE4YjhhZGEyMmYwIiwidCI6ImRmODY3OWNkLWE4MGUtNDVkOC05OWFjLWM4M2VkN2ZmOTVhMCJ9)")
+    # Selector de país
+    countries = deceased_data['location_key'].unique()
+    selected_country = st.selectbox('Selecciona un país:', countries)
+
+    # Filtrar el DataFrame para el país seleccionado
+    df_selected = deceased_data[deceased_data['location_key'] == selected_country]
+
+    # Crear la figura y el eje
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(df_selected['date'], df_selected['new_deceased'], label='Decesos')
+    ax.plot(df_selected['date'], df_selected['Prediccion'], label='Predicción')
+
+    # Añadir títulos y etiquetas
+    ax.set_title(f'Decesos vs Predicción en {selected_country}')
+    ax.set_xlabel('Fecha')
+    ax.set_ylabel('Decesos')
+    ax.legend()
+
+    # Rotar las etiquetas del eje x para mejor visualización
+    plt.xticks(rotation=45)
+
+    # Mostrar el gráfico
+    st.pyplot(fig)
