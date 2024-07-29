@@ -91,22 +91,36 @@ elif selected == "Ejemplo 1 Power BI":
 elif selected == "Gráficos ML":
     st.title("Gráficos de Predicción vs Realidad")
 
+    # Selector de tipo de predicción
+    prediccion_tipo = st.selectbox('Selecciona el tipo de predicción:', ['Decesos', 'Casos Confirmados'])
+
     # Selector de país
-    countries = deceased_data['location_key'].unique()
+    if prediccion_tipo == 'Decesos':
+        data = deceased_data
+        y_label_real = 'new_deceased'
+        y_label_pred = 'Prediccion'
+        y_title = 'Decesos'
+    else:
+        data = cases_data
+        y_label_real = 'new_confirmed'  # Cambiar esto al nombre correcto en tu DataFrame de casos confirmados
+        y_label_pred = 'Prediccion'
+        y_title = 'Casos Confirmados'
+
+    countries = data['location_key'].unique()
     selected_country = st.selectbox('Selecciona un país:', countries)
 
     # Filtrar el DataFrame para el país seleccionado
-    df_selected = deceased_data[deceased_data['location_key'] == selected_country]
+    df_selected = data[data['location_key'] == selected_country]
 
     # Crear la figura y el eje
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(df_selected['date'], df_selected['new_deceased'], label='Decesos')
-    ax.plot(df_selected['date'], df_selected['Prediccion'], label='Predicción')
+    ax.plot(df_selected['date'], df_selected[y_label_real], label=y_title)
+    ax.plot(df_selected['date'], df_selected[y_label_pred], label='Predicción')
 
     # Añadir títulos y etiquetas
-    ax.set_title(f'Decesos vs Predicción en {selected_country}')
+    ax.set_title(f'{y_title} vs Predicción en {selected_country}')
     ax.set_xlabel('Fecha')
-    ax.set_ylabel('Decesos')
+    ax.set_ylabel(y_title)
     ax.legend()
 
     # Rotar las etiquetas del eje x para mejor visualización
