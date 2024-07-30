@@ -48,14 +48,14 @@ def mostrar_predicciones(data, title):
 with st.sidebar:
     selected = option_menu(
         menu_title="Navegación",
-        options=["Presentación del equipo", "Predicción de decesos", "Predicción de casos confirmados", "Ejemplo 1 Power BI", "Gráficos ML"],
+        options=["Nosotros", "Predicción de decesos", "Prediccion de Casos", "Reporte", "Gráficos ML"],
         icons=["people", "activity", "bar-chart", "table", "bar-chart"],
         menu_icon="cast",
         default_index=0,
     )
 
-# Presentación del equipo
-if selected == "Presentación del equipo":
+# Nosotros
+if selected == "Nosotros":
     st.title("Presentación del Equipo de Trabajo")
     st.write("""
     **Equipo de Predicción de COVID-19**
@@ -78,13 +78,13 @@ if selected == "Presentación del equipo":
 elif selected == "Predicción de decesos":
     mostrar_predicciones(deceased_data, "Predicción de Decesos")
 
-# Predicción de casos confirmados
-elif selected == "Predicción de casos confirmados":
+# Prediccion de Casos
+elif selected == "Prediccion de Casos":
     mostrar_predicciones(cases_data, "Predicción de Casos Confirmados")
 
 # Dashboard Power BI
-elif selected == "Ejemplo 1 Power BI":
-    embed_url = "https://app.powerbi.com/view?r=eyJrIjoiMzRhMjMxYTgtY2Q3MS00NDk0LThjMWEtMmYwMWJmN2EyMzc2IiwidCI6Ijk5ZTFlNzIxLTcxODQtNDk4ZS04YWZmLWIyYWQ0ZTUzYzFjMiIsImMiOjR9&pageName=ReportSection"
+elif selected == "Reporte":
+    embed_url = "https://app.powerbi.com/view"
     st.components.v1.iframe(src=embed_url, height=800, width=1100)
 
 # Gráficos ML
