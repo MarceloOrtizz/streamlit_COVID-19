@@ -84,8 +84,8 @@ elif selected == "Prediccion de Casos":
 
 # Dashboard Power BI
 elif selected == "Reporte":
-    embed_url = "https://app.powerbi.com/view"
-    st.components.v1.iframe(src=embed_url, height=800, width=1100)
+    embed_url = "https://app.powerbi.com/view?r=eyJrIjoiMzViOGVmYzEtZDg3OS00ZjdmLWJkZjUtOWY4ZjQyYzFjNTcxIiwidCI6ImE0NDRiYjgyLTYzYjYtNDkxMi05Nzg1LTE5ZDhmODRiNzY3OCIsImMiOjR9"
+    st.components.v1.iframe(src=embed_url, height=600, width=1200)
 
 # Gráficos ML
 elif selected == "Gráficos ML":
