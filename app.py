@@ -48,8 +48,8 @@ def mostrar_predicciones(data, title):
 with st.sidebar:
     selected = option_menu(
         menu_title="Navegación",
-        options=["Nosotros", "Predicción de decesos", "Prediccion de Casos", "Reporte", "Gráficos ML"],
-        icons=["people", "activity", "bar-chart", "table", "bar-chart"],
+        options=["Reporte", "Gráficos ML", "Prediccion de Casos", "Predicción de decesos", "Nosotros"],
+        icons=["table", "bar-chart", "activity", "activity", "people"],
         menu_icon="cast",
         default_index=0,
     )
@@ -84,7 +84,7 @@ elif selected == "Prediccion de Casos":
 
 # Dashboard Power BI
 elif selected == "Reporte":
-    embed_url = "https://app.powerbi.com/view?r=eyJrIjoiMzViOGVmYzEtZDg3OS00ZjdmLWJkZjUtOWY4ZjQyYzFjNTcxIiwidCI6ImE0NDRiYjgyLTYzYjYtNDkxMi05Nzg1LTE5ZDhmODRiNzY3OCIsImMiOjR9"
+    embed_url = "https://app.powerbi.com/view?r=eyJrIjoiOGQ5NGJmOTEtZjZmZC00MTAyLThlYjItNmIyMGI3YTA0MDE0IiwidCI6ImE0NDRiYjgyLTYzYjYtNDkxMi05Nzg1LTE5ZDhmODRiNzY3OCIsImMiOjR9"
     st.components.v1.iframe(src=embed_url, height=600, width=1200)
 
 # Gráficos ML
